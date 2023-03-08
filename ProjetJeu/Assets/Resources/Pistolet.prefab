@@ -49,8 +49,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b04b411f0d186a64abdd4d57ff13e0ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  munRestante: 10
+  munRestante: 0
   tailleChargeur: 10
+  canvasInventaire: {fileID: 0}
+  player: {fileID: 0}
 --- !u!135 &3521042845615687491
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -94,7 +96,8 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 3668241635431280961}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -306,6 +309,10 @@ PrefabInstance:
     - target: {fileID: 3553688198376602916, guid: 4adfd115866279042a7b09cbd2010abf, type: 3}
       propertyPath: m_Layer
       value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 3553688198376602916, guid: 4adfd115866279042a7b09cbd2010abf, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6259926886892916478, guid: 4adfd115866279042a7b09cbd2010abf, type: 3}
       propertyPath: m_Layer

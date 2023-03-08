@@ -175,7 +175,8 @@ public class InventaireManager : MonoBehaviourPunCallbacks
         if (listeNbrInventaire[2] > 0)
         {
             Vector3 pos = new Vector3(player.transform.position.x , player.transform.position.y-0.5f,player.transform.position.z+2);
-            PhotonNetwork.Instantiate(arme1.name, pos , player.transform.rotation);
+            GameObject arme =  PhotonNetwork.Instantiate(arme1.name, pos , player.transform.rotation);
+            arme.GetComponent<SphereCollider>().enabled = true;
             listeNbrInventaire[2] -= 1;
             if (arme1 == Mitraillette)
             {
@@ -201,7 +202,8 @@ public class InventaireManager : MonoBehaviourPunCallbacks
         if (listeNbrInventaire[3] > 0)
         {
             Vector3 pos = new Vector3(player.transform.position.x , player.transform.position.y-0.5f,player.transform.position.z+2);
-            PhotonNetwork.Instantiate(arme2.name, pos , player.transform.rotation);
+            GameObject arme = PhotonNetwork.Instantiate(arme2.name, pos , player.transform.rotation);
+            arme.GetComponent<SphereCollider>().enabled = true;
             listeNbrInventaire[3] -= 1;
             dropArme2 = true;
         }

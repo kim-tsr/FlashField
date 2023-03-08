@@ -165,7 +165,8 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: -2981313590887943782}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -251,6 +252,10 @@ PrefabInstance:
     - target: {fileID: 4553195561164988, guid: 216ec6e5fef3e254d86b21071e614d66, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 23022011092513436, guid: 216ec6e5fef3e254d86b21071e614d66, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 216ec6e5fef3e254d86b21071e614d66, type: 3}

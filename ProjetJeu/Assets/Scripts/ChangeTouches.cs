@@ -9,6 +9,7 @@ public class ChangeTouches : MonoBehaviour
     public Canvas canvasTouches;
     public Canvas canvasPause;
     public Canvas canvasMenu;
+    public Canvas canvasTeam;
     
     public string avancer = "Z";
     public string reculer = "S";
@@ -91,7 +92,7 @@ public class ChangeTouches : MonoBehaviour
 
     public void Update()
     {
-        DontDestroyOnLoad(canvasTouches);
+        /*DontDestroyOnLoad(canvasTouches);*/
         floatSensi = sensiSouris.value;
         
         if (changeAvancer) // Pour changer la touche pour avancer
@@ -448,5 +449,11 @@ public class ChangeTouches : MonoBehaviour
         canvasMenu.enabled = true;
         canvasTouches.enabled = false;
 
+    }
+
+    public void ReturnTeam()
+    {
+        canvasTeam.enabled = true;
+        canvasTouches.enabled = false;
     }
 }

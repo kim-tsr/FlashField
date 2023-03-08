@@ -52,43 +52,39 @@ public class PlayerLife : MonoBehaviourPun
             MainCamera = GameObject.FindGameObjectWithTag("MainCamera");
             MainCamera.SetActive(true);
             
-            if (teamPlayerQuiATouche == "blue")
-            {
-                Debug.Log("killer blue");
-                canvasScoreBoard.GetComponent<ScoreBoardManager>().listeKillBlue[placePlayerQuiATouche].text = (int.Parse(canvasScoreBoard.GetComponent<ScoreBoardManager>().listeKillBlue[placePlayerQuiATouche].text)+1).ToString();
-            }
-        
             if (teamPlayerQuiATouche == "red")
             {
-                Debug.Log("killer red");
-                canvasScoreBoard.GetComponent<ScoreBoardManager>().listeKillRed[placePlayerQuiATouche].text = (int.Parse(canvasScoreBoard.GetComponent<ScoreBoardManager>().listeKillRed[placePlayerQuiATouche].text)+1).ToString();
+                 canvasScoreBoard.GetComponent<ScoreBoardManager>().listeIntKillBlue[placePlayerQuiATouche] += 1;
+                 canvasScoreBoard.GetComponent<ScoreBoardManager>().Refresh();
+                 canvasScoreBoard.GetComponent<ScoreBoardManager>().listeIntMortRed[placePlayerMort] += 1;
+                 canvasScoreBoard.GetComponent<ScoreBoardManager>().Refresh();
             }
         
-            if (teamPlayerMort == "blue")
+            if (teamPlayerQuiATouche == "blue")
             {
-                Debug.Log("mort blue");
-                canvasScoreBoard.GetComponent<ScoreBoardManager>().listeMortBlue[placePlayerMort].text = (int.Parse(canvasScoreBoard.GetComponent<ScoreBoardManager>().listeMortBlue[placePlayerMort].text)+1).ToString();
-            }
-        
-            if (teamPlayerMort == "red")
-            {
-                Debug.Log("mort red");
-                canvasScoreBoard.GetComponent<ScoreBoardManager>().listeMortRed[placePlayerMort].text = (int.Parse(canvasScoreBoard.GetComponent<ScoreBoardManager>().listeMortRed[placePlayerMort].text)+1).ToString();
+                canvasScoreBoard.GetComponent<ScoreBoardManager>().listeIntKillRed[placePlayerQuiATouche] += 1;
+                canvasScoreBoard.GetComponent<ScoreBoardManager>().Refresh();
+                canvasScoreBoard.GetComponent<ScoreBoardManager>().listeIntMortBlue[placePlayerMort] += 1;
+                canvasScoreBoard.GetComponent<ScoreBoardManager>().Refresh();
             }
             
-            Test();
+            PhotonView.Destroy(this.gameObject);
         }
     }
 
     [PunRPC]
+    public void Desact(GameObject player)
+    {
+        player.SetActive(false);
+    }
+    
     public void ATouche(string team_ , int place_)
     {
         teamPlayerQuiATouche = team_;
         placePlayerQuiATouche = place_;
     }
     
-
-    [PunRPC]
+    /*
     public void Kill(string[] lstrMortRed, string[] lstrMortBlue, string[] lstrKillBlue, string[] lstrKillRed)
     {
         Text[] lMortRed = canvasScoreBoard.GetComponent<ScoreBoardManager>().listeMortRed;
@@ -127,6 +123,8 @@ public class PlayerLife : MonoBehaviourPun
             lstrMortRed[i] = lMortRed[i].text;
         }
         
-        photonView.RPC("Kill",RpcTarget.All,lstrMortRed,lstrMortBlue , lstrKillBlue,lstrKillRed );
+        Kill(lstrMortRed,lstrMortBlue , lstrKillBlue,lstrKillRed );
     }
+    
+    */
 }

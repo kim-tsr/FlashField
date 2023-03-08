@@ -8,6 +8,10 @@ using UnityEngine.UI;
 
 public class ChoixEquipe : MonoBehaviour
 {
+    public Canvas canvasTeam;
+    public Canvas canvasTouches;
+    public Button buttonParametre;
+    
     public Text blueTeam;
     public Text redTeam;
 
@@ -55,6 +59,7 @@ public class ChoixEquipe : MonoBehaviour
                 RedButton.interactable = false;
                 SwitchButton.interactable = false;
                 ReadyButton.interactable = false;
+                buttonParametre.interactable = false;
             }
             else
             {
@@ -150,6 +155,12 @@ public class ChoixEquipe : MonoBehaviour
         SwitchButton.interactable = false;
         ReadyButton.interactable = false;
         View.RPC("AugmenteTeamManager",RpcTarget.All);
+    }
+
+    public void OuvrirTouches()
+    {
+        canvasTeam.enabled = false;
+        canvasTouches.enabled = true;
     }
 
     [PunRPC]

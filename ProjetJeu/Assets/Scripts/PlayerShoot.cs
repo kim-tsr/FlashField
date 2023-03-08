@@ -20,6 +20,7 @@ public class PlayerShoot : MonoBehaviourPunCallbacks
     public float styleMun;
 
     public LayerMask mask;
+    public LayerMask maskImpact;
 
     public WeaponManager weaponManager;
 
@@ -29,7 +30,7 @@ public class PlayerShoot : MonoBehaviourPunCallbacks
     public ParticleSystem flareSmokeFA;
     public ParticleSystem flareSmokeSniper;
 
-    public GameObject impactBalle;
+    public GameObject effetImpactBalle;
 
     public PlayerController playerController;
 
@@ -55,6 +56,8 @@ public class PlayerShoot : MonoBehaviourPunCallbacks
 
     public Canvas canvasScoreBoard;
     public GameObject dontDestroy;
+
+    public GameObject impactBalle;
 
 
     
@@ -198,14 +201,22 @@ public class PlayerShoot : MonoBehaviourPunCallbacks
             hit.transform.gameObject.GetComponent<PlayerLife>().life -= dammage; // Enleve la vie du GameObject qui a recu le hit
             string team = dontDestroy.GetComponent<DontDestroy>().team;
             int place = dontDestroy.GetComponent<DontDestroy>().place;
-            hit.transform.gameObject.GetComponent<PlayerLife>().photonView.RPC("ATouche",RpcTarget.All,team,place);
+            hit.transform.gameObject.GetComponent<PlayerLife>().ATouche(team,place);
             // La vie est recuperer grace au script PlayerLife. On lui enleve les degats que fait l'arme que possede le joueur qui a tire
+            
+            
+        }
+        
+        if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, range, maskImpact)) // Si il y a bien une collision sur l'objet souhaite
+        {
             
             Vector3 pos = hit.point; // On recupere le point de collision sous forme de vecteur 
             Vector3 normal = hit.normal; // On normalise le vecteur du point d'impact
-            GameObject hitEffect = Instantiate(impactBalle, pos, Quaternion.LookRotation(normal)); // Pour pouvoir faire spawn l'effet de hit a l'endroit voulu et dans le sens voulu
-            Destroy(hitEffect,2f); // On detruit l'effet de hit apres deux secondes
+            /*GameObject hitEffect = PhotonNetwork.Instantiate(effetImpactBalle.name, pos, Quaternion.LookRotation(normal));*/ // Pour pouvoir faire spawn l'effet de hit a l'endroit voulu et dans le sens voulu
+            GameObject hitImpact = PhotonNetwork.Instantiate(impactBalle.name, pos, Quaternion.LookRotation(normal)); // Pour pouvoir faire spawn l'effet de hit a l'endroit voulu et dans le sens voulu
+            /*PhotonNetwork.Destroy(hitEffect,2f); // On detruit l'effet de hit apres deux secondes*/
         }
+        
 
         if (currentWeapon == playerWeapon.Pistolet)
         {

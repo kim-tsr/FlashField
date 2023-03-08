@@ -3619,7 +3619,7 @@ GameObject:
   - component: {fileID: 8780456626967310660}
   m_Layer: 5
   m_Name: CanvasTouches
-  m_TagString: Untagged
+  m_TagString: Touches
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3720,6 +3720,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvasTouches: {fileID: 0}
   canvasPause: {fileID: 0}
+  canvasMenu: {fileID: 0}
   avancer: Z
   reculer: S
   droite: D
