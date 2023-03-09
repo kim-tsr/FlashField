@@ -13,6 +13,7 @@ public class PlayerLife : MonoBehaviourPun
     public Text texteLife;
 
     public GameObject MainCamera;
+    public GameObject GameManager;
 
     public PhotonView photonView;
 
@@ -26,6 +27,7 @@ public class PlayerLife : MonoBehaviourPun
     public string namePlayerQuiATouche;
     public string teamPlayerQuiATouche;
     public int placePlayerQuiATouche;
+    
     
     public void Start()
     {
@@ -58,6 +60,7 @@ public class PlayerLife : MonoBehaviourPun
                  canvasScoreBoard.GetComponent<ScoreBoardManager>().Refresh();
                  canvasScoreBoard.GetComponent<ScoreBoardManager>().listeIntMortRed[placePlayerMort] += 1;
                  canvasScoreBoard.GetComponent<ScoreBoardManager>().Refresh();
+                 GameManager.GetComponent<GameManager>().ChangeMort("red");
             }
         
             if (teamPlayerQuiATouche == "blue")
@@ -66,9 +69,10 @@ public class PlayerLife : MonoBehaviourPun
                 canvasScoreBoard.GetComponent<ScoreBoardManager>().Refresh();
                 canvasScoreBoard.GetComponent<ScoreBoardManager>().listeIntMortBlue[placePlayerMort] += 1;
                 canvasScoreBoard.GetComponent<ScoreBoardManager>().Refresh();
+                GameManager.GetComponent<GameManager>().ChangeMort("blue");
             }
             
-            PhotonView.Destroy(this.gameObject);
+            this.gameObject.SetActive(false);
         }
     }
 

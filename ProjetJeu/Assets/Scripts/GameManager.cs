@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Timers;
+using ExitGames.Client.Photon;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
@@ -34,6 +35,18 @@ public class GameManager : MonoBehaviourPunCallbacks
     public Text textTimer;
     public int currentMatchTime;
     private Coroutine timerCoroutine;
+    
+    public int nombreMortBleuManche;
+    public int nombreMortRougeManche;
+    public int nombreMaxManche;
+    public int currentNombreManche;
+    public bool tempsFini = false;
+    public int nombreMancheBleu;
+    public int nombreMancheRouge;
+    public int nombreMembreBleu;
+    public int nombreMembreRouge;
+
+    public GameObject canvasInterface;
     
     
     void Start()
@@ -94,7 +107,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     }
     
     */
-
+    
     IEnumerator SecondStart()
     {
         if (!do_one_time)
@@ -111,6 +124,9 @@ public class GameManager : MonoBehaviourPunCallbacks
                     Camera cam = player.GetComponent<Camera>();
                     cam.enabled = false;
                 }
+
+                nombreMembreBleu += 1;
+                PhotonNetwork.RaiseEvent((byte)5, new object[] {nombreMembreBleu,nombreMembreRouge},new RaiseEventOptions { Receivers = ReceiverGroup.All },SendOptions.SendReliable);
             }
             else if (team == "red")
             {
@@ -121,9 +137,99 @@ public class GameManager : MonoBehaviourPunCallbacks
                     Camera cam = player.GetComponent<Camera>();
                     cam.enabled = false;
                 }
+                nombreMembreRouge += 1;
+                PhotonNetwork.RaiseEvent((byte)5, new object[] {nombreMembreBleu,nombreMembreRouge},new RaiseEventOptions { Receivers = ReceiverGroup.All },SendOptions.SendReliable);
             }
         }
     }
+
+    public void Update()
+    {
+        if (tempsFini)
+        {
+            if (nombreMortBleuManche >= nombreMortRougeManche)
+            {
+                nombreMancheBleu += 1;
+            }
+            else
+            {
+                nombreMancheRouge += 1;
+            }
+
+            object[] content = new object[] { nombreMancheBleu, nombreMancheRouge };
+            PhotonNetwork.RaiseEvent(4, content,new RaiseEventOptions { Receivers = ReceiverGroup.All },SendOptions.SendReliable);
+            currentNombreManche += 1;
+            nombreMortBleuManche = 0;
+            nombreMortRougeManche = 0;
+        }
+        else if (nombreMortBleuManche >= nombreMembreBleu && nombreMembreBleu != 0)
+        {
+            
+            nombreMancheRouge += 1;
+            currentNombreManche += 1;
+            object[] content = new object[] { nombreMancheBleu, nombreMancheRouge };
+            PhotonNetwork.RaiseEvent(4, content,new RaiseEventOptions { Receivers = ReceiverGroup.All },SendOptions.SendReliable);
+            nombreMortBleuManche = 0;
+            nombreMortRougeManche = 0;
+        }
+        else if (nombreMortRougeManche >= nombreMembreRouge && nombreMembreRouge != 0)
+        {
+            
+            nombreMancheBleu += 1;
+            currentNombreManche += 1;
+            object[] content = new object[] { nombreMancheBleu, nombreMancheRouge };
+            PhotonNetwork.RaiseEvent(4, content,new RaiseEventOptions { Receivers = ReceiverGroup.All },SendOptions.SendReliable);
+            nombreMortBleuManche = 0;
+            nombreMortRougeManche = 0;
+        }
+
+        if (currentNombreManche >= nombreMaxManche)
+        {
+            
+        }
+    }
+    
+    public void OnEnable()
+    {
+        PhotonNetwork.NetworkingClient.EventReceived += NetworkingClient_EventReceived;
+    }
+
+    private void NetworkingClient_EventReceived(EventData obj)
+    {
+        if (obj.Code == 5)
+        {
+            object[] content = (object[]) obj.CustomData;
+            nombreMembreBleu = (int)content[0];
+            nombreMembreRouge = (int)content[1];
+        }
+        
+        if (obj.Code == 6)
+        {
+            object[] content = (object[]) obj.CustomData;
+            nombreMortBleuManche = (int)content[0];
+            nombreMortRougeManche = (int)content[1];
+        }
+    }
+    
+    public void OnDisable()
+    {
+        PhotonNetwork.NetworkingClient.EventReceived -= NetworkingClient_EventReceived;
+    }
+    
+    public void ChangeMort(string team_)
+    {
+        if (team_ == "blue")
+        {
+            nombreMortBleuManche += 1;
+        }
+        
+        if (team_ == "red")
+        {
+            nombreMortRougeManche += 1;
+        }
+        PhotonNetwork.RaiseEvent(6, new object[] {nombreMortBleuManche,nombreMortRougeManche},new RaiseEventOptions { Receivers = ReceiverGroup.All },SendOptions.SendReliable);
+    }
+    
 
     /*
     public   void Update()

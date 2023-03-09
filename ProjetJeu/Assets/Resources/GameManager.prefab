@@ -56,3 +56,17 @@ MonoBehaviour:
   name: 
   place: 0
   team: 
+  canvasTouches: {fileID: 0}
+  matchLength: 180
+  textTimer: {fileID: 0}
+  currentMatchTime: 0
+  nombreMortBleuManche: 0
+  nombreMortRougeManche: 0
+  nombreMaxManche: 0
+  currentNombreManche: 0
+  tempsFini: 0
+  nombreMancheBleu: 0
+  nombreMancheRouge: 0
+  nombreMembreBleu: 0
+  nombreMembreRouge: 0
+  canvasInterface: {fileID: 0}

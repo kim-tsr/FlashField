@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b04b411f0d186a64abdd4d57ff13e0ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  munRestante: 5
+  munRestante: 1
   tailleChargeur: 5
   canvasInventaire: {fileID: 0}
   player: {fileID: 0}

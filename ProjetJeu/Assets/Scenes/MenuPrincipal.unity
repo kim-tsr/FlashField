@@ -1158,6 +1158,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CanvasTouches
       objectReference: {fileID: 0}
+    - target: {fileID: 4732627012924854034, guid: 9e61c6fb362dce24196adef556804d19, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4732627012924854038, guid: 9e61c6fb362dce24196adef556804d19, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1452,11 +1456,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7956637664738259831, guid: 9e61c6fb362dce24196adef556804d19, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -47200
+      value: -4000
       objectReference: {fileID: 0}
     - target: {fileID: 7956637664738259831, guid: 9e61c6fb362dce24196adef556804d19, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 105212.7
+      value: 12561.965
       objectReference: {fileID: 0}
     - target: {fileID: 8007060434541307727, guid: 9e61c6fb362dce24196adef556804d19, type: 3}
       propertyPath: m_AnchorMax.y

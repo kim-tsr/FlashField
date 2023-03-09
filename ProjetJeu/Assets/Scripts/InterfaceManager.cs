@@ -7,7 +7,7 @@ using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TimerManager : MonoBehaviourPunCallbacks
+public class InterfaceManager : MonoBehaviourPunCallbacks
 {
     public Text textTimer;
 
@@ -17,7 +17,14 @@ public class TimerManager : MonoBehaviourPunCallbacks
     public bool mancheFini = false;
     public bool start = true;
 
+    public Text textMancheBleue;
+    public Text textMancheRouge;
 
+
+
+    public int mancheBleu = 0;
+    public int mancheRouge = 0;
+    
     private void Start()
     {
         StartCoroutine(Timer());
@@ -37,6 +44,18 @@ public class TimerManager : MonoBehaviourPunCallbacks
             string secondes = ((int)content % 60).ToString("00");
             textTimer.text = minutes + ":" + secondes;
         }
+
+        if (obj.Code == 4)
+        {
+            object[] content = (object[])obj.CustomData;
+            mancheBleu = (int)content[0];
+            mancheRouge = (int)content[1];
+        }
+    }
+
+    public void ChangeManche()
+    {
+        
     }
     
     public void OnDisable()
@@ -44,18 +63,12 @@ public class TimerManager : MonoBehaviourPunCallbacks
         PhotonNetwork.NetworkingClient.EventReceived -= NetworkingClient_EventReceived;
     }
     
-
-    /*
+    
     public void Update()
     {
-        Debug.Log("C'est dans le Update");
-        if (PhotonNetwork.IsMasterClient && start)
-        {
-            Debug.Log("C'est passe");
-            start = false;
-            Timer();
-        }
-    }*/
+        textMancheBleue.text = mancheBleu.ToString();
+        textMancheRouge.text = mancheRouge.ToString();
+    }
 
 
     IEnumerator Timer()
